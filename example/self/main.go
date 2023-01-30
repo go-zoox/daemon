@@ -10,8 +10,9 @@ func main() {
 	err := daemon.New(&daemon.Config{
 		LogFile: "/tmp/gd.log",
 		PidFile: "/tmp/gd.pid",
+		Cmd:     "/usr/bin/top",
 	}, func(cfg *daemon.Config) error {
-		return daemon.Run(cfg, "/usr/bin/top")
+		return daemon.Run(cfg, cfg.Cmd)
 	})
 
 	if err != nil {

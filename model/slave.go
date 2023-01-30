@@ -12,11 +12,9 @@ type SlaceConfig struct {
 }
 
 func Slave(cfg *SlaceConfig) (cmd *exec.Cmd, err error) {
-	cmd = &exec.Cmd{
-		Path: cfg.Cmd,
-		Args: append([]string{cfg.Cmd}, cfg.Args...),
-		Env:  os.Environ(),
-	}
+	cmd = exec.Command(cfg.Cmd, cfg.Args...)
+
+	cmd.Env = os.Environ()
 
 	return cmd, nil
 }

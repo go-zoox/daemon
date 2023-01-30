@@ -6,11 +6,14 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 )
 
 // BackgroundConfig ...
 type BackgroundConfig struct {
 	LogFile string
+	Cmd     string
+	Args    []string
 }
 
 // Background runs cmd in background.
@@ -22,11 +25,15 @@ func Background(cfg *BackgroundConfig) (*exec.Cmd, error) {
 	}
 
 	// 父进程
-	cmd := &exec.Cmd{
-		Path: os.Args[0],
-		Args: os.Args, // 注意,此处是包含程序名的
-		Env:  os.Environ(),
-	}
+	// cmd := &exec.Cmd{
+	// 	Path: os.Args[0],
+	// 	Args: append(os.Args, fmt.Sprintf("--role master --slave \"%s\"", strings.Join(append([]string{cfg.Cmd}, cfg.Args...), " "))), // 注意,此处是包含程序名的
+	// 	Env:  os.Environ(),
+	// }
+	_cmd := os.Args[0]
+	_args := append(os.Args[1:], fmt.Sprintf("--role master --slave \"%s\"", strings.Join(append([]string{cfg.Cmd}, cfg.Args...), " ")))
+	cmd := exec.Command(_cmd, _args...)
+	cmd.Env = os.Environ()
 
 	// 为子进程设置特殊的环境变量标识
 	cmd.Env = append(cmd.Env, fmt.Sprintf("%s=%s", EnvName, "IS_GO_ZOOX_DAEMON_CHILD"))

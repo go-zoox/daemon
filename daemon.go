@@ -14,6 +14,9 @@ import (
 type Config struct {
 	LogFile string
 	PidFile string
+	//
+	Cmd  string
+	Args []string
 }
 
 // New daemonizes a command.
@@ -27,6 +30,8 @@ func New(cfg *Config, onRun func(cfg *Config) error) error {
 
 	cmd, err := Background(&BackgroundConfig{
 		LogFile: cfg.LogFile,
+		Cmd:     cfg.Cmd,
+		Args:    cfg.Args,
 	})
 	if err != nil {
 		return fmt.Errorf("failed to start daemon master: %v", err)

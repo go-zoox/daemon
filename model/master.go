@@ -24,6 +24,8 @@ func Master(cfg *MasterConfig) error {
 	return daemon.New(&daemon.Config{
 		LogFile: cfg.LogFile,
 		PidFile: cfg.PidFile,
+		Cmd:     cfg.Cmd,
+		Args:    cfg.Args,
 	}, func(c *daemon.Config) error {
 		var log *os.File
 		var pidLog *os.File

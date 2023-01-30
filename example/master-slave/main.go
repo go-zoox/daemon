@@ -15,9 +15,13 @@ func main() {
 		},
 		PidLogFile: "/tmp/master-slave.pid.log",
 		MaxSalves:  4,
+		//
 		// Cmd:       "/usr/local/bin/docker",
-		Cmd:  "/tmp/mm.sh",
-		Args: []string{"stats"},
+		//
+		// Cmd:  "/tmp/mm.sh",
+		// Args: []string{"stats"},
+		//
+		Cmd: "top",
 	}); err != nil {
 		log.Fatal(err)
 	}
