@@ -63,9 +63,6 @@ func New(cfg *Config, onRun func(cfg *Config) error) error {
 }
 
 // Daemonrize daemonizes a command.
-func Daemonrize(
-	cfg *Config,
-	onRun func(cfg *Config) error,
-) error {
+func Daemonrize(cfg *Config, onRun func(cfg *Config) error) error {
 	return New(cfg, onRun)
 }
