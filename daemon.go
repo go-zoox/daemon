@@ -50,12 +50,22 @@ func New(cfg *Config, onRun func(cfg *Config) error) error {
 		}
 	}
 
-	logger.Infof("[daemon: %d] start ...", os.Getpid())
+	// root
+	logger.Infof("[daemon: %d][roor] start ...", os.Getpid())
+	err = onRun(cfg)
+	if err != nil {
+		// return err
+		logger.Infof("[daemon: %d][root] exit ...", os.Getpid())
+	}
 
-	return onRun(cfg)
+	return err
+
 }
 
 // Daemonrize daemonizes a command.
-func Daemonrize(cfg *Config, onRun func(cfg *Config) error) error {
+func Daemonrize(
+	cfg *Config,
+	onRun func(cfg *Config) error,
+) error {
 	return New(cfg, onRun)
 }

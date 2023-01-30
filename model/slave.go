@@ -1,6 +1,9 @@
 package model
 
-import "os/exec"
+import (
+	"os"
+	"os/exec"
+)
 
 type SlaceConfig struct {
 	Cmd  string
@@ -9,5 +12,11 @@ type SlaceConfig struct {
 }
 
 func Slave(cfg *SlaceConfig) (cmd *exec.Cmd, err error) {
-	return
+	cmd = &exec.Cmd{
+		Path: cfg.Cmd,
+		Args: append([]string{cfg.Cmd}, cfg.Args...),
+		Env:  os.Environ(),
+	}
+
+	return cmd, nil
 }
