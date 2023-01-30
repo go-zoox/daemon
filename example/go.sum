@@ -1,0 +1,16 @@
+github.com/fsnotify/fsnotify v1.5.4 h1:jRbGcIw6P2Meqdwuo0H1p6JVLbL5DHKAKlYndzMwVZI=
+github.com/fsnotify/fsnotify v1.5.4/go.mod h1:OVB6XrOHzAwXMpEM7uPOzcehqUV2UqJxmVXmkdnm1bU=
+github.com/go-zoox/chalk v1.0.1 h1:9s4i74InfcBosCexWixz3eh6DdBkl3McIcLkTI1HjTo=
+github.com/go-zoox/chalk v1.0.1/go.mod h1:z5+qvE9nEJI5uT4px2tyoFa/xxkqf3CUo22KmXLKbNI=
+github.com/go-zoox/datetime v1.1.0 h1:L37HNXrlAjTJuEvNytqoUEs0QZ2CpglM3mqfbqxA+Hg=
+github.com/go-zoox/datetime v1.1.0/go.mod h1:os6lYW/GXNpCIseFrBr8DNcOiPuwl5Ttc/kxo4JnMjw=
+github.com/go-zoox/fs v1.3.3 h1:f/vnf5mQDsxOWC3KGKSUNblmrUwdu1U5Og9ISTblsRA=
+github.com/go-zoox/fs v1.3.3/go.mod h1:sgsPVM/A1IAmUAhO/yyCAAKnkV6qSxToAj5G1gh4Tq8=
+github.com/go-zoox/logger v1.3.4 h1:ggrpXmd0tI5XZVKx6AhJYNH/0UPnvecC52/j8xeDksQ=
+github.com/go-zoox/logger v1.3.4/go.mod h1:o7ddvv/gMoMa0TomPhHoIz11ZWRbQ92pF6rwYbOY3iQ=
+github.com/go-zoox/uuid v0.0.1 h1:txqmDavRTq68gzzqWfJQLorFyUp9a7M2lmq2KcwPGPA=
+github.com/go-zoox/uuid v0.0.1/go.mod h1:0/F4LdfLqFdyqOf7aXoiYXRkXHU324JQ5DZEytXYBPM=
+github.com/google/uuid v1.3.0 h1:t6JiXgmwXMjEs8VusXIJk2BXHsn+wx8BZdTaoZ5fu7I=
+github.com/google/uuid v1.3.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
+golang.org/x/sys v0.0.0-20220412211240-33da011f77ad h1:ntjMns5wyP/fN65tdBD4g8J5w8n015+iIIs9rtjXkY0=
+golang.org/x/sys v0.0.0-20220412211240-33da011f77ad/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
