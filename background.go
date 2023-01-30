@@ -8,10 +8,12 @@ import (
 	"os/exec"
 )
 
+// BackgroundConfig ...
 type BackgroundConfig struct {
 	LogFile string
 }
 
+// Background runs cmd in background.
 func Background(cfg *BackgroundConfig) (*exec.Cmd, error) {
 	childMark := os.Getenv(EnvName)
 	if childMark != "" {

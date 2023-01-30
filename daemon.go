@@ -11,12 +11,13 @@ import (
 	"github.com/go-zoox/logger/transport/file"
 )
 
+// Config is the Daemon Config.
 type Config struct {
-	Role    string
 	LogFile string
 	PidFile string
 }
 
+// Daemon daemonize a cmd.
 func Daemon(cfg *Config, onCmd func(cfg *Config) *exec.Cmd) error {
 	logger.SetTransports(map[string]transport.Transport{
 		"file": file.New(&file.Config{
