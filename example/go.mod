@@ -1,4 +1,4 @@
-module example
+module daemonrize
 
 go 1.19
 
