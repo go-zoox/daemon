@@ -12,14 +12,12 @@ import (
 )
 
 type Config struct {
-	Cmd     string
-	Args    []string
 	Role    string
 	LogFile string
 	PidFile string
 }
 
-func Daemon(cfg *Config) error {
+func Daemon(cfg *Config, onCmd func(cfg *Config) *exec.Cmd) error {
 	logger.SetTransports(map[string]transport.Transport{
 		"file": file.New(&file.Config{
 			Level: "info",
@@ -28,10 +26,7 @@ func Daemon(cfg *Config) error {
 	})
 
 	cmd, err := Background(&BackgroundConfig{
-		Role:    RoleMaster,
 		LogFile: cfg.LogFile,
-		Cmd:     os.Args[0],
-		Args:    os.Args[1:], // 注意,此处是包含程序名的
 	})
 	if err != nil {
 		return fmt.Errorf("failed to start daemon master: %v", err)
@@ -57,11 +52,15 @@ func Daemon(cfg *Config) error {
 
 	logger.Infof("[daemon: %d] start ...", os.Getpid())
 
-	realCmd := &exec.Cmd{
-		Path: cfg.Cmd,
-		Args: append([]string{cfg.Cmd}, cfg.Args...),
-		Env:  os.Environ(),
-	}
+	// realCmd := &exec.Cmd{
+	// 	Path: cfg.Cmd,
+	// 	Args: append([]string{cfg.Cmd}, cfg.Args...),
+	// 	Env:  os.Environ(),
+	// }
+
+	realCmd := onCmd(cfg)
+
+	realCmd.Env = append(realCmd.Env, os.Environ()...)
 
 	if cfg.LogFile != "" {
 		stdout, err := os.OpenFile(cfg.LogFile, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0666)

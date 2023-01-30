@@ -9,28 +9,25 @@ import (
 )
 
 type BackgroundConfig struct {
-	Cmd     string
-	Args    []string
-	Role    string
 	LogFile string
 }
 
 func Background(cfg *BackgroundConfig) (*exec.Cmd, error) {
-	role := os.Getenv(EnvName)
-	if role != "" {
+	childMark := os.Getenv(EnvName)
+	if childMark != "" {
 		// 子进程 => 退出
 		return nil, nil
 	}
 
 	// 父进程
 	cmd := &exec.Cmd{
-		Path: cfg.Cmd,
-		Args: append([]string{cfg.Cmd}, cfg.Args...),
+		Path: os.Args[0],
+		Args: os.Args, // 注意,此处是包含程序名的
 		Env:  os.Environ(),
 	}
 
 	// 为子进程设置特殊的环境变量标识
-	cmd.Env = append(cmd.Env, fmt.Sprintf("%s=%s", EnvName, cfg.Role))
+	cmd.Env = append(cmd.Env, fmt.Sprintf("%s=%s", EnvName, "IS_GO_ZOOX_DAEMON_CHILD"))
 
 	if cfg.LogFile != "" {
 		stdout, err := os.OpenFile(cfg.LogFile, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0666)

@@ -2,17 +2,26 @@ package main
 
 import (
 	"log"
+	"os"
+	"os/exec"
 
 	"github.com/go-zoox/daemon"
 )
 
 func main() {
-	if err := daemon.Daemon(&daemon.Config{
+	err := daemon.Daemon(&daemon.Config{
 		LogFile: "/tmp/gd.log",
 		PidFile: "/tmp/gd.pid",
-		Role:    daemon.RoleMaster,
-		Cmd:     "/usr/bin/top",
-	}); err != nil {
+	}, func(cfg *daemon.Config) *exec.Cmd {
+		cmd := "/usr/bin/top"
+		return &exec.Cmd{
+			Path: cmd,
+			Args: []string{cmd},
+			Env:  os.Environ(),
+		}
+	})
+
+	if err != nil {
 		log.Fatal("daemonrized err:", err)
 	}
 }
