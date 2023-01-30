@@ -18,7 +18,7 @@ type Config struct {
 }
 
 // Daemon daemonize a cmd.
-func Daemon(cfg *Config, onCmd func(cfg *Config) *exec.Cmd) error {
+func Daemon(cfg *Config, onRun func(cfg *Config) error) error {
 	logger.SetTransports(map[string]transport.Transport{
 		"file": file.New(&file.Config{
 			Level: "info",
@@ -53,15 +53,15 @@ func Daemon(cfg *Config, onCmd func(cfg *Config) *exec.Cmd) error {
 
 	logger.Infof("[daemon: %d] start ...", os.Getpid())
 
-	// realCmd := &exec.Cmd{
-	// 	Path: cfg.Cmd,
-	// 	Args: append([]string{cfg.Cmd}, cfg.Args...),
-	// 	Env:  os.Environ(),
-	// }
+	return onRun(cfg)
+}
 
-	realCmd := onCmd(cfg)
-
-	realCmd.Env = append(realCmd.Env, os.Environ()...)
+func RunCommand(cfg *Config, cmdPath string, args ...string) error {
+	realCmd := &exec.Cmd{
+		Path: cmdPath,
+		Args: append([]string{cmdPath}, args...),
+		Env:  os.Environ(),
+	}
 
 	if cfg.LogFile != "" {
 		stdout, err := os.OpenFile(cfg.LogFile, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0666)
