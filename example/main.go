@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	err := daemon.Daemon(&daemon.Config{
+	err := daemon.New(&daemon.Config{
 		LogFile: "/tmp/gd.log",
 		PidFile: "/tmp/gd.pid",
 	}, func(cfg *daemon.Config) error {
-		return daemon.RunCommand(cfg, "/usr/bin/top")
+		return daemon.Run(cfg, "/usr/bin/top")
 	})
 
 	if err != nil {
